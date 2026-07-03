@@ -1,8 +1,10 @@
-const cacheName = 'mbn-artwork-v1';
+const cacheName = 'mbn-artwork-v2'; // غيرنا الاسم لـ v2 عشان نلغي القديم البايظ
 const staticAssets = [
   './',
   './index.html',
-  './manifest.json'
+  './manifest.json',
+  './style.css',
+  './script.js'
 ];
 
 self.addEventListener('install', async el => {
@@ -15,31 +17,19 @@ self.addEventListener('activate', el => {
   self.clients.claim();
 });
 
-self.addEventListener('fetch', async el => {
+self.addEventListener('fetch', el => {
   const req = el.request;
   const url = new URL(req.url);
 
+  // كاش فقط لملفات موقعك الداخلية
   if (url.origin === location.origin) {
     el.respondWith(cacheFirst(req));
-  } else {
-    el.respondWith(networkAndCache(req));
   }
+  // أي طلب خارجي (زي صور سوبابيز Supabase) سيبه يمر طبيعي من النت وميتدخلش فيه
 });
 
 async function cacheFirst(req) {
   const cache = await caches.open(cacheName);
   const cached = await cache.match(req);
   return cached || fetch(req);
-}
-
-async function networkAndCache(req) {
-  const cache = await caches.open(cacheName);
-  try {
-    const refresh = await fetch(req);
-    await cache.put(req, refresh.clone());
-    return refresh;
-  } catch (hi) {
-    const cached = await cache.match(req);
-    return cached;
-  }
 }
