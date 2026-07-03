@@ -314,4 +314,37 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+});let deferredPrompt;
+const installBanner = document.getElementById('pwa-install-banner');
+const installBtn = document.getElementById('pwa-install-btn');
+
+// المتصفح بيبعت الإشارة دي لو الموقع ينفع يتثبت كتطبيق
+window.addEventListener('beforeinstallprompt', (e) => {
+  // امنع المتصفح من إنه يظهر شريطه الافتراضي الرخم
+  e.preventDefault();
+  // احفظ الإشارة عشان نشغلها لما العميل يدوس على زرارنا
+  deferredPrompt = e;
+  // اظهر البنر الشيك بتاعنا للعميل
+  installBanner.style.display = 'flex';
+});
+
+// برمجة زرار التثبيت بتاعنا
+installBtn.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    // اظهر نافذة التثبيت الرسمية
+    deferredPrompt.prompt();
+    // استنى العميل يوافق ولا يرفض
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to the install prompt: ${outcome}`);
+    // خلاص استخدمنا الإشارة، صفرها
+    deferredPrompt = null;
+    // اخفي البنر بتاعنا
+    installBanner.style.display = 'none';
+  }
+});
+
+// لو العميل مسطب الأبلكيشن فعلياً وفاتحه، اخفي البنر تماماً
+window.addEventListener('appinstalled', () => {
+  installBanner.style.display = 'none';
+  deferredPrompt = null;
 });
