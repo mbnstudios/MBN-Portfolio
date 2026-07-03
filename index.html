@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBN ArtWork</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <h1 class="logo" onclick="showPage('home')" style="cursor: pointer;">MBN ArtWork</h1>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showPage('home')">Galleries</a></li>
+            <li><a href="#" onclick="showPage('packages')">Packages</a></li>
+            <li><a href="#" onclick="showPage('about')">About Me</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="page">
+        <div class="header-text">
+            <h1>Portfolio Galleries</h1>
+            <p>Choose a category to browse our previous work</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-card" onclick="openGallery('weddings')">
+                <img src="https://wgbmcgsvoraioekuygux.supabase.co/storage/v1/object/public/portfolio_images/IMG_1310-copy.png" alt="Weddings" class="cover-img">
+                <h3>Weddings</h3>
+            </div>
+            <div class="gallery-card" onclick="openGallery('engagement')">
+                <img src="https://wgbmcgsvoraioekuygux.supabase.co/storage/v1/object/public/portfolio_images/ALI_1035%20copy.jpg" alt="Engagement" class="cover-img">
+                <h3>Engagement</h3>
+            </div>
+            <div class="gallery-card" onclick="openGallery('casual')">
+                <img src="https://wgbmcgsvoraioekuygux.supabase.co/storage/v1/object/public/portfolio_images/001.png" alt="Casual" class="cover-img">
+                <h3>Casual</h3>
+            </div>
+            <div class="gallery-card" onclick="openGallery('fashion')">
+                <img src="https://wgbmcgsvoraioekuygux.supabase.co/storage/v1/object/public/portfolio_images/DSC_2128.JPG" alt="Fashion" class="cover-img">
+                <h3>Fashion</h3>
+            </div>
+            <div class="gallery-card" onclick="openGallery('makeup')">
+                <img src="https://wgbmcgsvoraioekuygux.supabase.co/storage/v1/object/public/portfolio_images/DSC_2444---copy.png" alt="Makeup" class="cover-img">
+                <h3>Makeup</h3>
+            </div>
+            <div class="gallery-card" onclick="openGallery('before_after')">
+                <img src="https://wgbmcgsvoraioekuygux.supabase.co/storage/v1/object/public/portfolio_images/01.jpg" alt="Before & After" class="cover-img">
+                <h3>Before & After</h3>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery-view" class="page hidden">
+        <button class="back-btn" onclick="showPage('home')">⟵ Back to Galleries</button>
+        <h2 id="gallery-title">Gallery Name</h2>
+        <div class="images-container" id="images-container"></div>
+    </section>
+
+    <section id="packages" class="page hidden">
+        <h2>Editing Packages</h2>
+        <div class="packages-grid">
+            <div class="package-card">
+                <h3>Basic Edit</h3>
+                <p class="price">200 EGP <span>/ 100 Photos</span></p>
+                <button onclick="bookOrder('Basic Edit')">Order Now</button>
+            </div>
+            <div class="package-card featured">
+                <h3>Full Edit</h3>
+                <p class="price">5 EGP <span>/ Photo</span></p>
+                <button onclick="bookOrder('Full Edit')">Order Now</button>
+            </div>
+            <div class="package-card">
+                <h3>High-end Edit</h3>
+                <p class="price">10 EGP <span>/ Photo</span></p>
+                <button onclick="bookOrder('High-end Edit')">Order Now</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="order" class="page hidden">
+        <button class="back-btn" onclick="showPage('packages')">⟵ Back to Packages</button>
+        <h2>Book an Editing Order</h2>
+        <form id="order-form" class="order-form">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="cust-name" required placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <label>WhatsApp Number</label>
+                <input type="tel" id="cust-whatsapp" required placeholder="For quick contact">
+            </div>
+            <div class="form-group">
+                <label>Photography Page Link</label>
+                <input type="url" id="cust-page" required placeholder="Facebook / Instagram Link">
+            </div>
+            <div class="form-group">
+                <label>Selected Package</label>
+                <select id="cust-package" required>
+                    <option value="Basic Edit">Basic Edit</option>
+                    <option value="Full Edit">Full Edit</option>
+                    <option value="High-end Edit">High-end Edit</option>
+                </select>
+            </div>
+            <div class="form-group highlight-box">
+                <label>To send photos (Attach a drive link or upload a test photo):</label>
+                <input type="url" id="cust-drive" placeholder="Google Drive Link">
+                <span class="or-text">OR</span>
+                <label class="file-upload-label">
+                    <input type="file" id="cust-file" accept="image/*">
+                    Upload Test Image
+                </label>
+            </div>
+            <button type="submit" id="send-btn" disabled>Send Order</button>
+        </form>
+    </section>
+
+    <section id="about" class="page hidden">
+        <div class="about-container">
+            <img src="https://wgbmcgsvoraioekuygux.supabase.co/storage/v1/object/public/portfolio_images/649802887_4392149107697276_6928306739449349473_n.jpg" alt="Mina - Professional Editor" class="profile-img">
+            
+            <h2 class="about-name">Mina Barsoum</h2>
+            <p class="about-title">Professional Photo Editor </p>
+            
+            <p class="about-bio">
+                "Welcome to my creative space. I am a passionate photo editor specializing in transforming raw moments into striking visual masterpieces. With a keen eye for details, high-end skin retouching, and advanced color grading, I help photographers elevate their work and deliver unforgettable results to their clients. Let's create magic together!"
+            </p>
+            
+            <div class="social-links-container">
+                <a href="https://www.facebook.com/mano.barsoum/" target="_blank" class="social-btn facebook-btn"> Profile</a>
+                <a href="https://www.facebook.com/mbn.artworkk"target="_blank" class="social-btn page-btn">facebook Page</a>
+                <a href="https://www.instagram.com/mbn.artwork/="target="_blank" class="social-btn instagram-btn">Instagram</a>
+                <a href="https://wa.me/201008974904" target="_blank" class="social-btn whatsapp-btn">WhatsApp Chat</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="login-page" class="page hidden">
+        <button class="back-btn" onclick="showPage('home')">⟵ Back to Home</button>
+        <h2 style="text-align: center; color: var(--primary-color);">Admin Access Only</h2>
+        <form id="login-form" class="order-form" style="max-width: 400px; margin-top: 20px;">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="admin-email" required placeholder="Enter admin email">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="admin-password" required placeholder="••••••••">
+            </div>
+            <button type="submit" id="login-btn" style="width: 100%; padding: 12px; margin-top: 10px;">Sign In</button>
+        </form>
+    </section>
+
+    <section id="admin-page" class="page hidden">
+        <div class="admin-header">
+            <h2>Admin Dashboard - MBN ArtWork</h2>
+            <button onclick="handleLogout()" style="background: #cc3333; color: white;">Log Out</button>
+        </div>
+        <table id="admin-table" style="width: 100%; margin-top: 20px; text-align: left; border-collapse: collapse;" border="1">
+            <thead>
+                <tr style="color: var(--primary-color); background-color: #222;">
+                    <th style="padding: 10px;">Order ID</th>
+                    <th style="padding: 10px;">Name</th>
+                    <th style="padding: 10px;">WhatsApp</th>
+                    <th style="padding: 10px;">Package</th>
+                    <th style="padding: 10px;">Files</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <div id="success-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Success! 🎉</h3>
+            <p>Your order has been received. We will contact you on WhatsApp shortly.</p>
+            <button class="close-btn-modal" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" src="" onclick="toggleZoom()" title="Click to Zoom">
+    </div>
+
+    <footer class="main-footer">
+        <p>© 2026 MBN ArtWork. All rights reserved. <span class="admin-trigger" onclick="adminAccess()">[Admin Space]</span></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
