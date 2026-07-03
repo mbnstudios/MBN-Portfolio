@@ -1,12 +1,11 @@
 {
   "name": "MBN ArtWork",
   "short_name": "MBN ArtWork",
-  "description": "معرض أعمال وتطبيق MBN ArtWork الاحترافي",
-  "start_url": "./index.html",
+  "start_url": "/MBN-Portfolio/index.html",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#121212",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "icon-192.png",
